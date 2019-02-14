@@ -31,7 +31,6 @@ class UserService{
     }
   }
 
-  
   private function fetch_user($user, $token){
     $this->id = $user['id'];
     $this->username = $user['username'];
@@ -42,6 +41,7 @@ class UserService{
   public function is_loggedin(){
     return (isset($this->id) && isset($this->username) && $this->user_group != GROUP_GUEST);
   }
+
   public function login($username, $password){
     $user = $this->dal->get_user_for_login([$username, $password]);
     if(!empty($user)){

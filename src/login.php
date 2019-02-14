@@ -4,9 +4,9 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if(isset($_POST['username']) && isset($_POST['password'])){
         if($current_user->login($_POST['username'], $_POST['password'])){
-          printf("Successfully logged in as %s", $current_user->username);
+          printf(messages['USER_LOGIN_SUCCESS'], $current_user->username);
         }else{
-          printf("Username or password is not correct");
+          printf(messages['USER_LOGIN_FAIL']);
         };
       }
     }
