@@ -2,7 +2,7 @@
 class DAL {
   private function db_connect(){
     try{
-    $db = parse_url("postgres://blqprwdcaxhtir:16a965579df5dc7514cf3b84be8d262067e5ddb7aff32fbf37fe5dc9a1882d68@ec2-23-21-165-188.compute-1.amazonaws.com:5432/d19tgsq41vjc48");
+    $db = parse_url(getenv("DATABASE_URL"));
     $conn = new PDO("pgsql:" . sprintf(
         "host=%s;port=%s;user=%s;password=%s;dbname=%s",
         $db["host"],
@@ -64,6 +64,11 @@ class DAL {
     $sql = 'UPDATE sessions SET valid=false WHERE token=?';
     return $this->x($sql, $args);
 
+  }
+
+  public function upload_image($args){
+    $sql = 'INSERT INTO images (link","created","own_by") VALUES(?,?,?)';
+    return $this->x($sql, $args);
   }
 }
 ?>
