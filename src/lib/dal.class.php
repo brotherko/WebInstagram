@@ -66,8 +66,8 @@ class DAL {
 
   }
 
-  public function upload_image($args){
-    $sql = 'INSERT INTO images (link","created","own_by") VALUES(?,?,?)';
+  public function add_image($args){
+    $sql = 'INSERT INTO images ("link","created","own_by","visbility") VALUES(?,?,?,?)';
     return $this->x($sql, $args);
   }
 }
