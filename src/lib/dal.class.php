@@ -80,7 +80,7 @@ class DAL {
   }
 
   public function get_images_by_created($args){
-    $sql = 'SELECT * FROM images WHERE visibility=? ORDER BY created DESC LIMIT 8 OFFSET ?';
+    $sql = 'SELECT * FROM images WHERE visibility=1 OR (visibility=0 AND own_by=?) ORDER BY created DESC LIMIT 8 OFFSET ?';
     return $this->q($sql, $args, false);
   }
 

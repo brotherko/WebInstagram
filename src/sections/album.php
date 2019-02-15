@@ -6,7 +6,7 @@
   $max_pager = ceil($total_items['count']/CONFIG['items_per_page']);
   $prev_pager = $page > 1 ? '<a href="?page='.($page-1).'">Prev</a>' : null;
   $next_pager = $page < $max_pager ? '<a href="?page='.($page+1).'">Next</a>' : null;
-  $images = $dal->get_images_by_created([VISIBILITY_PUBLIC, $offset]);
+  $images = $dal->get_images_by_created([$current_user->id, $offset]);
 ?>
 <style>
   .container {
