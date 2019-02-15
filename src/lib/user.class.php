@@ -6,7 +6,7 @@ const TOKEN_COOKIE_NAME = "SESSION_TOKEN";
 
 class UserService{
   private $dal = null;
-  private $expiry_time = 3600;
+  private $expiry_time = 3600*12;
 
   public $id = null;
   public $username = null;
