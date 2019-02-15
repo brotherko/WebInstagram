@@ -24,8 +24,8 @@
 <body>
 <?php if(!$current_user->is_loggedin()){ ?>
   <form method="post" action="login.php">
-    <input name="username" /> 
-    <input name="password" type="password" /> 
+    Username: <input name="username" /> <br>
+    Password: <input name="password" type="password" /> <br>
     <input type="submit">
   </form> 
 <?php } ?>
