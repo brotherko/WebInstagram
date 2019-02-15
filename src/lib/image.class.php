@@ -8,8 +8,9 @@ class ImageService {
   const VALID_EXTS = array("jpg", "png", "gif");
   const VALID_TYPES = array("image/jpeg", "image/gif", "image/png");
   const VALID_MINETYPE = array("image/x-png", "image/x-gif", "image/x-jpeg");
+
   function __construct(){
-    $this->dal = ($dal) ? $dal : new DAL();
+    $this->dal = new DAL();
     $this->s3 = new Aws\S3\S3Client([
       'version'  => '2006-03-01',
       'region'   => 'ap-southeast-1',
@@ -17,8 +18,12 @@ class ImageService {
     $this->bucket = getenv('S3_BUCKET_NAME')?: die('No "S3_BUCKET" config');
   }
 
+  private function get_image_ext($file){
+    return substr($file['name'], -3);
+  }
+
   private function is_valid_image_exts($file){
-    $cond = in_array(substr($file['name'], -3), self::VALID_EXTS);
+    $cond = in_array($this->get_image_ext($file), self::VALID_EXTS);
     return $cond;
   }
 
@@ -46,10 +51,9 @@ class ImageService {
 
   public function upload($file, $user_id){
     try{
-      print_r($file);
       $upload = $this->s3->putObject([
         'Bucket' => $this->bucket,
-        'Key' => time().".png",
+        'Key' => time().$this->get_image_ext($file),
         'SourceFile' => $file['tmp_name'],
         'ACL' => 'public-read',
         'ContentType' => $file['type']
@@ -59,7 +63,8 @@ class ImageService {
       return false;
     }
     try{
-      $this->dal->add_image([$upload_result['ObjectURL'], NOW, $user_id, $_POST['visbility']]);
+      // var_dump($upload);
+      $this->dal->add_image([$upload->get('ObjectURL'), NOW, $user_id, $_POST['visbility']]);
     } catch(PDOException $e){
       printf("DB Error:%s", $e);
       return false;
