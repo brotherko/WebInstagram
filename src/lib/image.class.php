@@ -21,12 +21,12 @@ class ImageService
         $this->bucket = getenv('S3_BUCKET_NAME') ?: die('No "S3_BUCKET" config');
     }
 
-    function get_image_ext($filename)
+    static function get_image_ext($filename)
     {
         return substr($filename, -3);
     }
 
-    function get_image_type_by_ext($ext)
+    static function get_image_type_by_ext($ext)
     {
         return self::EXT_TO_TYPE[$ext];
     }
