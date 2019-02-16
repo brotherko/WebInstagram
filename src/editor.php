@@ -15,12 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
             if (!$image_svc->is_valid_image($file)) {
                 home("This is not valid image");
             } else {
-                $url = $image_svc->upload(UPLOAD_SOURCE,
+                $before_url = $image_svc->upload(UPLOAD_SOURCE,
                     $file['tmp_name'],
                     $current_user->id . '_original.' . substr($file['name'], -3),
                     $file['type']);
-                // $url = $image_svc->upload($_FILES['file'], $current_user->id);
-                $before_url = $after_url = $url;
+                $after_url = $image_svc->upload(UPLOAD_SOURCE,
+                    $file['tmp_name'],
+                    $current_user->id . '_filter.' . substr($file['name'], -3),
+                    $file['type']);
             }
         }
     }
