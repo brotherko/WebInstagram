@@ -24,19 +24,14 @@ if($current_user->user_group == 1){
         printf("Sessions DB: Failed to initiate.");
       };
       
-      printf("System has been successfully initiated, redirecting you to index in 3 seconds.");
-      //Hard reload
-      header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-      header("Pragma: no-cache"); // HTTP 1.0.
-      header("Expires: 0");      
-      header("refresh: 3; url=index.php");
+      home("System has been successfully initiated, redirecting you to index in 3 seconds.", 3, true);
       exit();
     }else{
       header("location: index.php");
     }
   }
 }else{
-  printf("permission denied");
+  home("permission denied");
 }
 ?>
 <p>System initialization: ALL DATA WOULD BE DELETED</p>

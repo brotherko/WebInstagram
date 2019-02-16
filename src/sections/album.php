@@ -11,7 +11,7 @@
 ?>
 <style>
   .container {
-    width: 1200px;
+    width: 1000px;
   }
   .container.album{
     display: flex;
@@ -19,19 +19,20 @@
     justify-content: space-between;
   }
   .album > div {
-    width: 250px;
+    width: 220px;
     padding: 5px;
   }
-  .album > div > img{
+  .album > div img{
     width: 100%;
   }
 </style>
 <div class="album container">
   <?php foreach($images as $image){ ?>
-    <div><img src="<?=$image['link']?>"></div>
+    <div><a href="<?=$image['link']?>"><img src="<?=$image['link']?>"></a></div>
   <?php } ?>
 </div>
-<div class="container">
+<div>
 <?=$prev_pager?>
+Page <?=$page?>
 <?=$next_pager?>
 </div>

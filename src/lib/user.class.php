@@ -67,7 +67,7 @@ class UserService{
       //remove session from db
       $this->dal->remove_session([$this->token]);
       //refresh
-      header("Location: /");
+      home("you have been logged out");
     }
   }
 }
