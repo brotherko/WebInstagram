@@ -12,19 +12,21 @@ if($current_user->user_group == 1){
       }else{
         printf("S3 Bucket: Failed to initiate.");
       };
+      print("<br>");
       if($dal->init_images()){
         printf("Images DB: Successfully initiated.");
       }else{
         printf("Images DB: Failed to initiate.");
       };
+      print("<br>");
 
       if($dal->init_sessions()){
         printf("Sessions DB: Successfully initiated.");
       }else{
         printf("Sessions DB: Failed to initiate.");
       };
-      
-      home("System has been successfully initiated, redirecting you to index in 3 seconds.", 3, true);
+      print("<br>");
+      home("System has been successfully initiated, redirecting you to index in 6 seconds.", 6, true);
       exit();
     }else{
       header("location: index.php");
