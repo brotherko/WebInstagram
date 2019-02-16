@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
         $visibility = $_POST['visibility'];
         $before_url = $_POST['before_url'];
         $ext = $image_svc::get_image_ext($_POST['before_url']);
-        $filtered_image = $image_svc->get_filtered_image($before_url, 
-        $_POST['filter']);
+        $filtered_image = $image_svc->get_filtered_image($before_url,
+            $_POST['filter']);
         $key = $current_user->id . '_filter.' . $ext;
         $upload_result = $image_svc->upload(UPLOAD_BLOB,
             $filtered_image,
@@ -47,27 +47,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
         && isset($_POST['after_url'])) {
         $ext = $image_svc::get_image_ext($_POST['after_url']);
         $source_key = $current_user->id . '_filter.' . $ext;
-        $upload_url = $image_svc->persis_upload( hash(md5, NOW . rand()).'.'.$ext,
-            $source_key);
-        if ($dal->add_image([$upload_url,
-            NOW,
-            $current_user->id,
-            $_POST['visibility']])) {
-            home("Image successfully uploaded");
-            exit();
-        } else {
-            printf("Error while uploading image");
-            exit();
+        if ($upload_url = $image_svc->persis_upload(hash(md5, NOW . rand()) . '.' . $ext,
+            $source_key)) {
+            if ($dal->add_image([$upload_url,
+                NOW,
+                $current_user->id,
+                $_POST['visibility']])) {
+                home("Image successfully uploaded");
+                exit();
+            } else {
+                printf("Error while uploading image");
+                exit();
+            }
+
         }
     }
 
     if (isset($_POST['discard']) && isset($_POST['after_url'])) {
         $ext = $image_svc::get_image_ext($_POST['after_url']);
-        if($image_svc->discard_upload($current_user->id, $ext)){
-          home("Your images have been deleted from our server");
-        }else{
-          home("Error while discard ur image");
-        };
+        if ($image_svc->discard_upload($current_user->id, $ext)) {
+            home("Your images have been deleted from our server");
+        } else {
+            home("Error while discard ur image");
+        }
     }
 
 }
