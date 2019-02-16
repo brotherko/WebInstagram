@@ -7,8 +7,7 @@ class ImageService
     private $s3 = null;
     private $bucket = null;
     const VALID_EXTS = array("jpg", "png", "gif");
-    const VALID_TYPES = array("image/jpeg", "image/gif", "image/png");
-    const VALID_MINETYPE = array("image/x-png", "image/x-gif", "image/x-jpeg");
+    const VALID_MIMETYPES = array("image/jpeg", "image/gif", "image/png", "image/x-png", "image/x-gif", "image/x-jpeg");
     const EXT_TO_TYPE = array("jpg" => "image/jpeg", "gif" => "image/gif", "jpg" => "image/png");
 
     function __construct()
@@ -40,7 +39,7 @@ class ImageService
 
     function is_valid_image_types($file)
     {
-        $cond = in_array($file['type'], self::VALID_TYPES);
+        $cond = in_array($file['type'], self::VALID_MIMETYPES);
         printf("type:". $cond);
         return $cond;
     }
@@ -50,12 +49,12 @@ class ImageService
         $imagick = new Imagick($file['tmp_name']);
         try {
             $image_info = $imagick->identifyImage(false);
-            print_r($image_info);
+            print_r($image_info)
         } catch (Exception $e) {
             printf($e);
             return false;
         }
-        $cond = in_array($image_info['mimetype'], self::VALID_MINETYPE);
+        $cond = in_array($image_info['mimetype'], self::VALID_MIMETYPES);
         printf("con:". $cond);
         return $cond;
     }
