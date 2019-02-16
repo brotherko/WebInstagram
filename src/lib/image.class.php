@@ -49,30 +49,71 @@ class ImageService {
         && $this->is_valid_image_content($file);
   }
 
-  public function upload($file, $user_id){
+  public function get_filtered_image($tmp_link, $filter){
+    $imagick = new Imagick();
+    $imagick->readImageBlob(file_get_contents($tmp_link));
+    switch($filter){
+      case FILTER_BORDER:
+        $imagick->borderImage("#000000", "20", "20");
+        break;
+      case FILTER_LOMO:
+        $pixels = $imagick->getImageWidth() * $imagick->getImageHeight();
+        $imagick->linearStretchImage(0.15 * $pixels, 0.1 * $pixels);
+        $imagick->gammaImage(1.5);
+        $imagick->setImageBackgroundColor("black");
+        $imagick->vignetteImage(255,255,0,0);
+        $imagick->blurImage(10, 1);
+        break;
+      case FILTER_LENSFLARE:
+        $flare = new Imagick(realpath("assets/lensflare.png"));
+        
+        break;
+      case FILTER_BLACKNWHITE:
+      
+        break;
+      case FILTER_BLUR:
+        
+        break;
+    }
+    return $imagick->getImageBlob();
+  }
+  public function upload_by_blob($key, $blob, $type){
     try{
       $upload = $this->s3->putObject([
         'Bucket' => $this->bucket,
-        'Key' => time().$this->get_image_ext($file),
-        'SourceFile' => $file['tmp_name'],
+        'Key' => $key,
+        'Body' => $blob,
         'ACL' => 'public-read',
-        'ContentType' => $file['type']
+        'ContentType' => $type 
       ]);
+      return $upload->get('ObjectURL');
     } catch(Exception $e){
       print($e);
       return false;
     }
+
+  }
+  public function upload($file, $user_id){
     try{
-      // var_dump($upload);
-      $this->dal->add_image([$upload->get('ObjectURL'), NOW, $user_id, $_POST['visbility']]);
-    } catch(PDOException $e){
-      printf("DB Error:%s", $e);
+      $upload = $this->s3->putObject([
+        'Bucket' => $this->bucket,
+        'Key' => time().'.'.$this->get_image_ext($file),
+        'SourceFile' => $file['tmp_name'],
+        'ACL' => 'public-read',
+        'ContentType' => $file['type']
+      ]);
+      return $upload->get('ObjectURL');
+    } catch(Exception $e){
+      print($e);
       return false;
     }
-    $this->is_valid_image_content($file);
-    return true;
+    // try{
+    //   // var_dump($upload);
+    //   return $this->dal->add_image([$upload->get('ObjectURL'), NOW, $user_id, $_POST['visbility']]);
+    // } catch(PDOException $e){
+    //   printf("DB Error:%s", $e);
+    //   return false;
+    // }
   }
-  
-  
 }
 ?>
