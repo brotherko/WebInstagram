@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
             && is_uploaded_file($file['tmp_name'])) {
             $file = $_FILES['file'];
             if (!$image_svc->is_valid_image($file)) {
-                printf("This is not valid image");
+                home("This is not valid image");
             } else {
                 $url = $image_svc->upload(UPLOAD_SOURCE,
                     $file['tmp_name'],
@@ -47,13 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
         $source_key = $current_user->id . '_filter.' . $ext;
         $upload_url = $image_svc->persis_upload( hash(md5, NOW . rand()).'.'.$ext,
             $source_key);
-        print($upload_url);
         if ($dal->add_image([$upload_url,
             NOW,
             $current_user->id,
             $_POST['visibility']])) {
-            printf("Image successfully uploaded");
-            header("refresh: 3; url=index.php");
+            home("Image successfully uploaded");
             exit();
         } else {
             printf("Error while uploading image");
@@ -64,12 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
     if (isset($_POST['discard']) && isset($_POST['after_url'])) {
         $ext = $image_svc::get_image_ext($_POST['after_url']);
         if($image_svc->discard_upload($current_user->id, $ext)){
-          printf("Your images have been deleted from our server");
-          header("refresh: 3; url=index.php");
-          exit();
+          home("Your images have been deleted from our server");
         }else{
-          printf("Error while discard ur image");
-          exit();
+          home("Error while discard ur image");
         };
     }
 

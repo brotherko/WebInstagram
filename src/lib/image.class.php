@@ -34,12 +34,14 @@ class ImageService
     function is_valid_image_exts($file)
     {
         $cond = in_array(self::get_image_ext($file['name']), self::VALID_EXTS);
+        printf("exts:". $cond);
         return $cond;
     }
 
     function is_valid_image_types($file)
     {
         $cond = in_array($file['type'], self::VALID_TYPES);
+        printf("type:". $cond);
         return $cond;
     }
 
@@ -52,6 +54,7 @@ class ImageService
             return false;
         }
         $cond = in_array($image_info['mimetype'], self::VALID_MINETYPE);
+        printf("con:". $cond);
         return $cond;
     }
 

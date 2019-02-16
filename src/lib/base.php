@@ -7,4 +7,10 @@ require_once("lib/config.php");
 
 $dal = new DAL();
 $current_user = new UserService();
+
+function home($msg, $interval = 2){
+  printf($msg);
+  header("refresh: ".$interval."; url=index.php");
+  exit();
+}
 ?>
