@@ -53,11 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
                 NOW,
                 $current_user->id,
                 $_POST['visibility']])) {
-                home("Image successfully uploaded");
-                exit();
+                  printf("You photo have been uploaded to WebInstagram!<br>
+                  <img src=$upload_url /><br>
+                  The permalink of your photo: $upload_url<br>
+                  <a href=index.php>back to home page</a>
+                  ");
+
             } else {
-                printf("Error while uploading image");
-                exit();
+                home("Error while uploading image");
             }
 
         }
