@@ -50,7 +50,9 @@ class ImageService
         $imagick = new Imagick($file['tmp_name']);
         try {
             $image_info = $imagick->identifyImage(false);
+            print_r($image_info);
         } catch (Exception $e) {
+            printf($e);
             return false;
         }
         $cond = in_array($image_info['mimetype'], self::VALID_MINETYPE);
