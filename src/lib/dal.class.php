@@ -23,7 +23,7 @@ class DAL {
     }
   }
 
-  private function q($sql,$args, $isOne=false){
+  private function q($sql, $args, $isOne=false){
     try{
       $stmt = $this->dal->prepare($sql);
       $stmt->execute($args);
@@ -36,7 +36,7 @@ class DAL {
     }
   }
 
-  private function x($sql,$args){
+  private function x($sql, $args = []){
     try{
       $stmt = $this->dal->prepare($sql);
       if($stmt->execute($args)){
@@ -73,6 +73,11 @@ class DAL {
     return $this->x($sql, $args);
   }
 
+  public function init_sessions(){
+    $sql = 'DELETE FROM sessions';
+    return $this->x($sql);
+  }
+
   //Image Service
   public function add_image($args){
     $sql = 'INSERT INTO images ("link","created","own_by","visibility") VALUES(?,?,?,?)';
@@ -87,6 +92,11 @@ class DAL {
   public function count_images($args){
     $sql = 'SELECT count(*) FROM images WHERE visibility=?';
     return $this->q($sql, $args, true);
+  }
+
+  public function init_images(){
+    $sql = 'DELETE FROM images';
+    return $this->x($sql);
   }
 
 }

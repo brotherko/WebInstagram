@@ -1,3 +1,4 @@
+<h2>Photo Album</h2>
 <?php
   require_once 'lib/base.php';  
   $page = $_GET['page'] ?? 1;
@@ -25,7 +26,6 @@
     width: 100%;
   }
 </style>
-<h2>Photo Album</h2>
 <div class="album container">
   <?php foreach($images as $image){ ?>
     <div><img src="<?=$image['link']?>"></div>

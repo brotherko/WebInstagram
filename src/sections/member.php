@@ -1,3 +1,4 @@
+<h2>Member Area</h2>
 <?php
 require_once 'lib/base.php';
 if(!$current_user->is_loggedin()){
@@ -21,7 +22,6 @@ if(!$current_user->is_loggedin()){
 }
 ?>
 
-<h2>Member Area</h2>
 <?php if(!$current_user->is_loggedin()){ ?>
 <form method="post" action="">
   Username: <input name="username" /> <br>
