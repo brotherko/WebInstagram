@@ -1,0 +1,23 @@
+web:
+  build: .
+  command: 'bash -c ''vendor/bin/heroku-php-nginx src/'''
+  working_dir: \app\user
+  environment:
+    PORT: 8080
+  ports:
+    - '8080:8080'
+local:
+  build: .
+  command: 'bash -c ''php -S localhost:8888 -t src/'''
+  working_dir: \app\user
+  environment:
+shell:
+  build: .
+  command: bash
+  working_dir: \app\user
+  environment:
+    PORT: 8080
+  ports:
+    - '8080:8080'
+  volumes:
+    - '.:\app\user'

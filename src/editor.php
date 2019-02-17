@@ -1,3 +1,4 @@
+<h2>Photo Editor</h2>
 <?php
 require_once 'lib/base.php';
 require_once 'lib/image.class.php';
@@ -103,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
   width:100%;
 }
 </style>
-<h2>Your uploaded image</h2>
 <div class="container">
   <div class="grid">
     <h3>Before</h3>
