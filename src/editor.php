@@ -24,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
                     $current_user->id . '_filter.' . substr($file['name'], -3),
                     $file['type']);
             }
+        }else{
+          home('Please choose a file to upload.');
         }
     }
 
@@ -58,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
                   The permalink of your photo: $upload_url<br>
                   <a href=index.php>back to home page</a>
                   ");
+                  exit();
 
             } else {
                 home("Error while uploading image");

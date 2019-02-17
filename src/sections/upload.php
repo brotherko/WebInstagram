@@ -1,6 +1,6 @@
 <h2>Upload Image</h2>
 <form method="post" enctype="multipart/form-data" action="editor.php">
-  <input name="file" type="file"> <br>
+  <input name="file" type="file" required> <br>
   <input 
     type="radio"
     name="visibility"

@@ -20,8 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <form method="post" action="index.php">
 <?php if(!$current_user->is_loggedin()){ ?>
-  Username: <input name="username" /> <br>
-  Password: <input name="password" type="password" /> <br>
+  Username: <input name="username" required /> <br>
+  Password: <input name="password" type="password" required /> <br>
   <input type="submit" name="login">
 <?php
 }else{
