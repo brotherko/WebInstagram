@@ -44,11 +44,11 @@ class ImageService
 
     function is_valid_image_content($file)
     {
-        $imagick = new Imagick($file['tmp_name']);
         try {
+            $imagick = new Imagick($file['tmp_name']);
             $image_info = $imagick->identifyImage(false);
-        } catch (Exception $e) {
-            printf($e);
+        } catch (ImagickException $e) {
+            // printf($e);
             return false;
         }
         $cond = in_array($image_info['mimetype'], self::VALID_MIMETYPES);
