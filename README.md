@@ -1,8 +1,5 @@
 # WebInstagram
 
-## Link to the application
-https://mighty-river-79307.herokuapp.com/
-
 ## Folder structure
 ```
 |-- root | 
