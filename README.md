@@ -1,5 +1,4 @@
 # WebInstagram
-Assignment 1 of CSCI4140 @ 2019 Sem 2
 
 ## Link to the application
 https://mighty-river-79307.herokuapp.com/
